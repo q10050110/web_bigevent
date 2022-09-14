@@ -6,14 +6,16 @@ axios.interceptors.request.use(config => {
   return config
 })
 // 页面加载完成后发起ajax请求
-window.addEventListener('load', async function () {
+async function getUserInfo() {
   const Authorization = sessionStorage.getItem('token')
   if (!Authorization) return (this.location.href = './login.html')
   const { data: res } = await axios.get('my/userinfo')
   if (res.code !== 0) return layui.layer.msg('获取用户信息失败！')
   renderAvatar(res.data)
+}
+window.addEventListener('load', function () {
+  getUserInfo()
 })
-
 // 渲染用户头像
 function renderAvatar(user) {
   const imgs = document.querySelectorAll('.layui-nav-img')
@@ -21,10 +23,7 @@ function renderAvatar(user) {
   const name = user.nickname || user.username
   document.querySelector('#welcome').innerHTML = `欢迎${name}`
   if (user.user_pic !== null) {
-    imgs.forEach(item => {
-      item.style.src = user.user_pic
-      item.style.display = 'inline-block'
-    })
+    imgs.forEach(item => (item.src = user.user_pic))
     txts.forEach(item => (item.style.display = 'none'))
   } else {
     txts.forEach(item => {
