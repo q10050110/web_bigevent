@@ -1,3 +1,5 @@
+// 设置默认请求根路径
+axios.defaults.baseURL = 'http://big-event-vue-api-t.itheima.net/'
 // 切换注册登录模块
 const links = document.querySelector('.links')
 const reg = document.querySelector('.reg-box')
@@ -29,7 +31,7 @@ register.addEventListener('click', async function (e) {
     password: document.querySelector('.login-box [name=password]').value
   }
   if (e.target.tagName === 'BUTTON') {
-    const { data: res } = await axios.post('http://big-event-vue-api-t.itheima.net/api/login', userInfo)
+    const { data: res } = await axios.post('api/login', userInfo)
     if (res.code !== 0) return layer.msg(res.message)
     layer.msg('登录成功！')
     sessionStorage.setItem('token', res.token)
@@ -46,7 +48,7 @@ zc.addEventListener('click', async function (e) {
     repassword: document.querySelector('.reg-box [name=reppassword]').value
   }
   if (e.target.tagName === 'BUTTON') {
-    const { data: res } = await axios.post('http://big-event-vue-api-t.itheima.net/api/reg', userInfo)
+    const { data: res } = await axios.post('api/reg', userInfo)
     if (res.code !== 0) return layer.msg(res.message)
     layer.msg('注册成功！')
     reg.style.display = 'none'
