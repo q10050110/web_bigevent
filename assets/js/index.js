@@ -1,10 +1,3 @@
-// 设置请求根路径
-axios.defaults.baseURL = 'http://big-event-vue-api-t.itheima.net/'
-// 请求拦截器添加token请求头保证用户有权限获取数据
-axios.interceptors.request.use(config => {
-  config.headers.Authorization = sessionStorage.getItem('token')
-  return config
-})
 // 页面加载完成后发起ajax请求
 async function getUserInfo() {
   const Authorization = sessionStorage.getItem('token')
@@ -13,9 +6,7 @@ async function getUserInfo() {
   if (res.code !== 0) return layui.layer.msg('获取用户信息失败！')
   renderAvatar(res.data)
 }
-window.addEventListener('load', function () {
-  getUserInfo()
-})
+getUserInfo()
 // 渲染用户头像
 function renderAvatar(user) {
   const imgs = document.querySelectorAll('.layui-nav-img')
@@ -42,3 +33,9 @@ document.querySelector('#btnLogout').addEventListener('click', function () {
     location.href = './login.html'
   })
 })
+
+// tab栏切换
+function tabChange() {
+  document.querySelector('.fb').classList.remove('layui-this')
+  document.querySelector('.list').classList.add('layui-this')
+}

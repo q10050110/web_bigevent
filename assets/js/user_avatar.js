@@ -1,10 +1,3 @@
-// 设置请求根路径
-axios.defaults.baseURL = 'http://big-event-vue-api-t.itheima.net/'
-// 请求拦截器添加token请求头保证用户有权限获取数据
-axios.interceptors.request.use(config => {
-  config.headers.Authorization = sessionStorage.getItem('token')
-  return config
-})
 // 获取元素
 const $img = $('#image')
 const chooseImg = document.querySelector('.btnChooseImage')
